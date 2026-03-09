@@ -605,6 +605,82 @@ class BaiduTranslator {
     }
 
     /**
+     * Translate with the full dictionary endpoint.
+     *
+     * This endpoint returns richer word metadata such as phonetics,
+     * detailed meanings, definitions and examples.
+     */
+    async translateByDictionary(text: string, from: string, to: string) {
+        let retryCount = 0;
+
+        const translateOneTime = async (): Promise<TranslationResult> => {
+            let detectedFrom = from;
+            if (detectedFrom === "auto") {
+                detectedFrom = await this.detect(text);
+            }
+
+            const toCode = this.getLanguageCode(to, "translate", text);
+            const fromCode =
+                detectedFrom === "auto"
+                    ? "auto"
+                    : this.getLanguageCode(detectedFrom, "translate", text);
+
+            const response = (await axios({
+                url: `/v2transapi?from=${fromCode}&to=${toCode}`,
+                method: "post",
+                baseURL: this.HOST,
+                headers: this.HEADERS,
+                data: new URLSearchParams({
+                    from: fromCode,
+                    to: toCode,
+                    query: text,
+                    transtype: "realtime",
+                    simple_means_flag: "3",
+                    sign: this.generateSign(text, this.gtk),
+                    token: this.token,
+                    domain: "common",
+                } as Record<string, string>),
+                timeout: 5000,
+            })) as AxiosResponse<any>;
+
+            const data = response.data || {};
+            if (!data.errno) {
+                return this.parseResult(data);
+            }
+
+            if (retryCount < this.MAX_RETRY) {
+                retryCount += 1;
+                await this.getTokenGtk();
+                return translateOneTime();
+            }
+
+            this.throwError(data.errno, data.msg || "translate failed", "translate", text, from, to);
+        };
+
+        if (!(this.token && this.gtk)) {
+            await this.getTokenGtk();
+        }
+
+        return translateOneTime();
+    }
+
+    /**
+     * Single-word queries benefit from Baidu's richer dictionary endpoint.
+     */
+    shouldUseDictionaryEndpoint(text: string) {
+        const normalizedText = text.trim();
+        if (!normalizedText || normalizedText.length > 64 || normalizedText.includes("\n")) {
+            return false;
+        }
+
+        const terms = normalizedText
+            .split(/[\s,/;:!?()[\]{}"'`~@#$%^&*_+=\|<>]+/)
+            .filter(Boolean);
+
+        return terms.length === 1;
+    }
+
+    /**
      * Convert language to Baidu code and validate.
      */
     getLanguageCode(language: string, action: string, text: string) {
@@ -626,6 +702,11 @@ class BaiduTranslator {
     async translate(text: string, from: string, to: string) {
         const toCode = this.getLanguageCode(to, "translate", text);
         const fromCode = from === "auto" ? "auto" : this.getLanguageCode(from, "translate", text);
+        if (this.shouldUseDictionaryEndpoint(text)) {
+            try {
+                return await this.translateByDictionary(text, from, to);
+            } catch (error) {}
+        }
         return this.translateByFallback(text, fromCode, toCode);
     }
 
