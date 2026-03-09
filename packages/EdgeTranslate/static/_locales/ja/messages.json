@@ -328,6 +328,14 @@
         "message": "典型的な例文：",
         "description": "典型的な例文の翻訳ソースを設定します。"
     },
+    "BaiduTranslate": {
+        "message": "Baidu翻訳",
+        "description": "Baidu Translate"
+    },
+    "BaiduTranslateShort": {
+        "message": "Baidu",
+        "description": "Baidu Translate"
+    },
     "BingTranslate": {
         "message": "ビング翻訳",
         "description": "ビング翻訳"

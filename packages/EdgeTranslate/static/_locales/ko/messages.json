@@ -94,6 +94,8 @@
     "DefinitionTranslator": { "message": "정의 공급자", "description": "정의 공급자" },
     "ExampleTranslator": { "message": "예문 공급자", "description": "예문 공급자" },
 
+    "BaiduTranslate": { "message": "Baidu 번역", "description": "Baidu 번역" },
+    "BaiduTranslateShort": { "message": "Baidu", "description": "Baidu" },
     "BingTranslate": { "message": "Bing 번역", "description": "Bing 번역" },
     "BingTranslateShort": { "message": "Bing", "description": "Bing" },
     "DeepLTranslate": { "message": "DeepL 번역", "description": "DeepL 번역" },

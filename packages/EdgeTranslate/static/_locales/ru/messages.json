@@ -328,6 +328,14 @@
         "message": "Примеры слов:",
         "description": "Выберите источник примеров слов."
     },
+    "BaiduTranslate": {
+        "message": "Переводчик Baidu",
+        "description": "Переводчик Baidu"
+    },
+    "BaiduTranslateShort": {
+        "message": "Baidu",
+        "description": "Переводчик Baidu"
+    },
     "BingTranslate": {
         "message": "Переводчик Bing",
         "description": "Переводчик Bing"

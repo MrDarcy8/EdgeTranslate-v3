@@ -328,6 +328,14 @@
         "message": "Example Provider",
         "description": "Choose the example provider."
     },
+    "BaiduTranslate": {
+        "message": "Baidu Translate",
+        "description": "Baidu Translate."
+    },
+    "BaiduTranslateShort": {
+        "message": "Baidu",
+        "description": "Abbreviation of Baidu Translate."
+    },
     "BingTranslate": {
         "message": "Bing Translate",
         "description": "Bing Translate."

@@ -1,6 +1,7 @@
 import BingTranslator from "./translators/bing";
 import GoogleTranslator from "./translators/google";
 import DeepLTranslator from "./translators/deepl";
+import BaiduTranslator from "./translators/baidu";
 import HybridTranslator from "./translators/hybrid";
 import axios from "./axios";
 
@@ -232,6 +233,7 @@ export {
   axios,
   LANGUAGES,
   HybridTranslator,
+  BaiduTranslator,
   BingTranslator,
   GoogleTranslator,
   DeepLTranslator,

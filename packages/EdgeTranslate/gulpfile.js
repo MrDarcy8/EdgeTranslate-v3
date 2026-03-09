@@ -306,7 +306,7 @@ function packStatic() {
             .src([
                 "../../node_modules/pdfjs-dist/build/pdf.mjs",
                 "../../node_modules/pdfjs-dist/build/pdf.worker.mjs",
-            ], { base: "../../node_modules/pdfjs-dist" })
+            ], { base: "../../node_modules/pdfjs-dist", allowEmpty: true })
             .pipe(gulp.dest(`${output_dir}build/`));
 
         const streams = [staticJSFiles, staticOtherFiles, webAssets, pdfjsCore];
@@ -335,7 +335,7 @@ function packStatic() {
         .src([
             "../../node_modules/pdfjs-dist/build/pdf.mjs",
             "../../node_modules/pdfjs-dist/build/pdf.worker.mjs",
-        ], { base: "../../node_modules/pdfjs-dist" })
+        ], { base: "../../node_modules/pdfjs-dist", allowEmpty: true })
         .pipe(gulp.dest(`${output_dir}build/`));
 
     const streams = [staticJSFiles, staticOtherFiles, webAssets, pdfjsCore];

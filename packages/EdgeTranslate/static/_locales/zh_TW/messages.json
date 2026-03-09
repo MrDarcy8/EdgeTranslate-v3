@@ -328,6 +328,14 @@
         "message": "典型例句：",
         "description": "設置典型例句翻譯源。"
     },
+    "BaiduTranslate": {
+        "message": "百度翻譯",
+        "description": "百度翻譯翻譯源。"
+    },
+    "BaiduTranslateShort": {
+        "message": "百度翻譯",
+        "description": "百度翻譯翻譯源縮寫。"
+    },
     "BingTranslate": {
         "message": "必應翻譯",
         "description": "必應翻譯翻譯源。"

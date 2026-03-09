@@ -5,6 +5,7 @@ import {
     PronunciationSpeed,
     TranslationResult,
 } from "../types";
+import BaiduTranslator from "./baidu";
 import BingTranslator from "./bing";
 import DeepLTranslator from "./deepl";
 import GoogleTranslator from "./google";
@@ -12,6 +13,7 @@ import { LRUCache } from "../utils/lru";
 import { fnv1a32 } from "../utils/hash";
 
 export type HybridSupportedTranslators =
+    | "BaiduTranslate"
     | "BingTranslate"
     | "DeepLTranslate"
     | "GoogleTranslate";
@@ -32,6 +34,7 @@ class HybridTranslator {
         translators: [],
     };
     REAL_TRANSLATORS: {
+        BaiduTranslate: BaiduTranslator;
         BingTranslate: BingTranslator;
         GoogleTranslate: GoogleTranslator;
         DeepLTranslate: DeepLTranslator;
@@ -57,6 +60,7 @@ class HybridTranslator {
          * Real supported translators.
          */
         this.REAL_TRANSLATORS = {
+            BaiduTranslate: new BaiduTranslator(),
             BingTranslate: new BingTranslator(),
             GoogleTranslate: new GoogleTranslator(),
             DeepLTranslate: null as unknown as DeepLTranslator,
